@@ -1,21 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Person from './Person/Person'
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+// functional component
+const app = (props) => {
+  // manages state
+  const [personsState, setPersonsState] = useState(
+    {
+      persons: [
+        { name: "Breanne", age: "28" },
+        { name: "Olivia", age: "27" }
+      ],
+    });
+
+    const [otherState] = useState(
+      {
+        otherState: 'Hey there!'
+      });
+
+  // handles events
+  const switchNameHandler = () => {
+    console.log('Was clicked!');
+    setPersonsState({
+      persons: [
+        { name: "Breanne", age: "30" },
+        { name: "Diane", age: "54" }
+      ]
+    })
+  };
+
+  return (
+    <div className="App">
+      <h1>Hi, I'm a React app.</h1>
+      <button onClick={switchNameHandler}>Switch Name</button>
+      <Person name={personsState.persons[0].name} age={personsState.persons[0].age}>Welcome!</Person>
+      <Person name={personsState.persons[1].name} age={personsState.persons[1].age} />
+      <p>{otherState.otherState}</p>
+    </div>
+  );
 }
 
-export default App;
+export default app;
